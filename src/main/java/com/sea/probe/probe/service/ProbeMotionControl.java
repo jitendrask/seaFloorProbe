@@ -2,41 +2,49 @@ package com.sea.probe.probe.service;
 
 import com.sea.probe.probe.model.Coordinate;
 import com.sea.probe.probe.model.Direction;
+import com.sea.probe.probe.model.ServiceStatus;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class ProbeMotionControl {
-
-    static Coordinate currentCoordinate = new Coordinate(5,5);
     static Direction currentDirection = Direction.N;
-    static int[][] grid = new int[10][10];
     static List<Coordinate> obstacles = new ArrayList<>();
 
-    public List<Coordinate> moveForward(int value){
-        List<Coordinate> visitedCoordinates = new ArrayList<>();
-        return visitedCoordinates;
+    public ServiceStatus moveForward(int value){
+
+        return null;
     }
-    public List<Coordinate> moveBackwards(int value){
-        List<Coordinate> visitedCoordinates = new ArrayList<>();
-        return visitedCoordinates;
+    public ServiceStatus moveBackwards(int value){
+        return null;
     }
 
     public Direction turnRight(){
-        return null;
+        currentDirection = switch (currentDirection){
+            case E -> Direction.S;
+            case N -> Direction.E;
+            case S -> Direction.W;
+            case W -> Direction.N;
+        };
+        return currentDirection;
     }
 
     public Direction turnLeft(){
-        return null;
+        currentDirection = switch (currentDirection){
+            case E -> Direction.N;
+            case N -> Direction.W;
+            case S -> Direction.E;
+            case W -> Direction.S;
+        };
+        return currentDirection;
     }
 
     public void introduceObstacle(Coordinate coordinate){
-
-    }
-
-    public List<Coordinate> getObstacle(Coordinate coordinate){
-
-        return null;
+        if(!obstacles.contains(coordinate)){
+            obstacles.add(coordinate);
+        }
     }
 
     public Direction getCurrentDirection(){
